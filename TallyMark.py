@@ -1,4 +1,5 @@
 from collections import Counter
+import datetime
 
 def total_avg(arr):
   arr_total = 0
@@ -9,14 +10,26 @@ def total_avg(arr):
   return arr_total, arr_avg
 
 def clear_list(arr):
-  arr.clear()
+  clearInput = ""
+  while clearInput != "y":
+    clearInput = input("Are you sure? Insert n for no or y for yes\n")
+    if clearInput == "y":
+      arr.clear()
+    elif clearInput == "n":
+      break
+    else:
+      print("Invalid input, please try again")
 
 def display_count(arr):
-  arr.sort()
   display = Counter(arr)
+  tallymark = sorted(display.items())
+  print("TallyMark list produced:")
+  for i in tallymark:
+    print(i)
   print("")
-  print(display)
-  print("")
+
+def remove_recent(arr):
+  del arr[len(arr)-1]
 
 def main():
   user_input = ""
@@ -27,6 +40,7 @@ def main():
   while user_input != "quit":
     user_input = input("Insert a number or input 'quit' to exit\n")
     if user_input.isdigit():
+      timestamp = datetime.datetime.now()
       user_input = int(user_input)
       section_count.append(user_input)
       complete_count.append(user_input)
@@ -35,7 +49,16 @@ def main():
 
       complete_total, complete_avg = total_avg(complete_count)
 
-      print("Section Average: " + str(round((sect_avg / 100), 2)) + "\nSection Total: " + str(sect_total / 100) + "\nTotal Average: " + str(round((complete_avg / 100), 2)) + "\nTotal Amount: " + str(complete_total / 100))
+      print("Input inserted at " + timestamp.strftime("%X"))
+      print("Section Price Average: " + str(round((sect_avg / 100), 2)) + "\nSection Price Total: " + str(sect_total / 100) + "\nSection Item Count: " + str(len(section_count)) + "\nTotal Price Average: " + str(round((complete_avg / 100), 2)) + "\nTotal Price Amount: " + str(round((complete_total / 100), 2)) + "\nComplete Item Count: " + str(len(complete_count)))
+
+    elif user_input == "r":
+      print(section_count)
+      remove_recent(section_count)
+      print(section_count)
+      print(complete_count)
+      remove_recent(complete_count)
+      print(complete_count)
 
     elif user_input == "a":
       display_count(complete_count)
