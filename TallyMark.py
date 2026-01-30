@@ -36,10 +36,8 @@ def bulk_remove(arr):
   for i in range(1, bulkDel):
     del arr[len(arr)-i]
 
-def bulk_add(arr):
-  numItem = int(input("What amount would you like to add in bulk?"))
-  bulkItem = int(input("How many would you like to add"))
-  for i in range(1, bulkItem):
+def bulk_add(arr, numItem, bulkItem):
+  for i in range(bulkItem):
     arr.append(numItem)
 
 def main():
@@ -68,8 +66,10 @@ def main():
       remove_recent(complete_count)
 
     elif user_input == "b":
-      bulk_add(section_count)
-      bulk_add(complete_count)
+      numItem = int(input("What amount would you like to add in bulk?\n"))
+      bulkItem = int(input("How many would you like to add\n"))
+      bulk_add(section_count,numItem,bulkItem)
+      bulk_add(complete_count,numItem,bulkItem)
 
     elif user_input == "br":
       bulk_remove(section_count)
