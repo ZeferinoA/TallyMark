@@ -31,6 +31,17 @@ def display_count(arr):
 def remove_recent(arr):
   del arr[len(arr)-1]
 
+def bulk_remove(arr):
+  bulkDel = int(input("How many items would you like to delete?"))
+  for i in range(1, bulkDel):
+    del arr[len(arr)-i]
+
+def bulk_add(arr):
+  numItem = int(input("What amount would you like to add in bulk?"))
+  bulkItem = int(input("How many would you like to add"))
+  for i in range(1, bulkItem):
+    arr.append(numItem)
+
 def main():
   user_input = ""
   section_count = []
@@ -53,12 +64,16 @@ def main():
       print("Section Price Average: " + str(round((sect_avg / 100), 2)) + "\nSection Price Total: " + str(sect_total / 100) + "\nSection Item Count: " + str(len(section_count)) + "\nTotal Price Average: " + str(round((complete_avg / 100), 2)) + "\nTotal Price Amount: " + str(round((complete_total / 100), 2)) + "\nComplete Item Count: " + str(len(complete_count)))
 
     elif user_input == "r":
-      print(section_count)
       remove_recent(section_count)
-      print(section_count)
-      print(complete_count)
       remove_recent(complete_count)
-      print(complete_count)
+
+    elif user_input == "b":
+      bulk_add(section_count)
+      bulk_add(complete_count)
+
+    elif user_input == "br":
+      bulk_remove(section_count)
+      bulk_remove(complete_count)
 
     elif user_input == "a":
       display_count(complete_count)
@@ -67,6 +82,10 @@ def main():
       display_count(section_count)
 
     elif user_input == "c":
+      clear_list(section_count)
+
+    elif user_input == "e":
+      display_count(section_count)
       clear_list(section_count)
 
     elif user_input == "quit":
