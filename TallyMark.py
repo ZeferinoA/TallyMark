@@ -10,15 +10,7 @@ def total_avg(arr):
   return arr_total, arr_avg
 
 def clear_list(arr):
-  clearInput = ""
-  while clearInput != "y":
-    clearInput = input("Are you sure? Insert n for no or y for yes\n")
-    if clearInput == "y":
-      arr.clear()
-    elif clearInput == "n":
-      break
-    else:
-      print("Invalid input, please try again")
+  arr.clear()
 
 def display_count(arr):
   display = Counter(arr)
@@ -46,9 +38,15 @@ def main():
   user_input = ""
   section_count = []
   complete_count = []
+  with open(filename, "r") as countRead:
+    for line in countRead:
+      complete_count.append(int(line.strip()))
 
   print("Welcome to the TallyMark Program")
   while user_input != "quit":
+    with open(filename,"w") as countWrite:
+        for i in range(len(complete_count)):
+          countWrite.write(str(complete_count[i]) + "\n")
     user_input = input("Insert a number or input 'quit' to exit\n")
     if user_input.isdigit():
       timestamp = datetime.datetime.now()
@@ -82,7 +80,15 @@ def main():
       display_count(section_count)
 
     elif user_input == "c":
-      clear_list(section_count)
+      clearInput = ""
+      while clearInput != "y":
+        clearInput = input("Are you sure? Insert n for no or y for yes\n")
+        if clearInput == "y":
+          clear_list(section_count)
+        elif clearInput == "n":
+          break
+        else:
+          print("Invalid input, please try again")
 
     elif user_input == "e":
       display_count(section_count)
@@ -97,4 +103,12 @@ def main():
 
 
 if __name__=="__main__":
+  filename = str(datetime.date.today()) + ".txt"
+  
+  try:
+    with open(filename, 'x') as f:
+      print("Start of the Day")  
+  except FileExistsError:
+    print("Welcome Back")
+
   main()
