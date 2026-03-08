@@ -30,6 +30,8 @@ def bulk_remove(arr):
 
 def bulk_add(arr, numItem, bulkItem):
   for i in range(bulkItem):
+    with open(filename, "a") as countAppend:
+        countAppend.write(str(numItem) + "\n")
     arr.append(numItem)
 
 def main():
